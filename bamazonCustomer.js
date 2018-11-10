@@ -9,13 +9,14 @@ var connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: '',
+    password: 'Dima7735',
     database: 'Bamazon_db'
 });
 //Establish Connection
 connection.connect(function (err) {
     if (err) throw err;
     console.log('connected as id: ' + connection.threadId)
+    showProducts();
 });
 
 //FUNCTIONS
@@ -70,7 +71,7 @@ function placeOrder() {
                 amountOwed = res[0].Price * answer.selectQuantity;
                 currentDepartment = res[0].DepartmentName;
                 console.log('Thanks for your order');
-                console.log('You owe $' + amountOwed);
+                console.log('You owe $' + parseInt(amountOwed)) ;
                 console.log('');
                 //update products table
                 connection.query('UPDATE products SET ? Where ?', [{
@@ -79,7 +80,7 @@ function placeOrder() {
                     id: answer.selectId
                 }], function (err, res) {});
                 //update departments table
-                logSaleToDepartment();
+                // logSaleToDepartment();
                 newOrder();
             }
         })
